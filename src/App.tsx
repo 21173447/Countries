@@ -9,11 +9,11 @@ const App: React.FC = () => {
     
     <Router>
        <Hero/>
-      <Routes>
-       
+        <Routes>
         <Route path="/" element={<Data />} />
         <Route path="/flag/:cca3" element={<FlagDetail />} />
       </Routes>
+      
     </Router>
   );
 };

@@ -35,15 +35,15 @@ const Data: React.FC = () => {
   }
 
   return (
-    <div >
-    <h1 className="text-center py-10  text-2xl">Countries List</h1>
+    <div className="">
+    <h1 className="text-center py-10  text-2xl ">Countries List</h1>
 
-    <ul className="grid grid-cols-2 place-items-center  md:grid-cols-4 lg:grid-cols-5 gap-2 px-20 p-5 ">
+    <ul className="grid grid-cols-2 place-items-center  md:grid-cols-4 lg:grid-cols-6 gap-2 px-20 p-5 ">
       {countries.map((country) => (
-        <li className="border border-red-700 w-48 " key={country.cca3}>
+        <li className="border  border-red-700 text-red-500 transition-all duration-300 hover:bg-red-200 hover:scale-105  " key={country.cca3}>
           <Link to={`/flag/${country.cca3}`}>
             <img
-              className="w-48 h-40 object-cover border p-1"
+              className="w-48 h-40 object-cover  border overflow-hidden "
               src={country.flags.svg}
               alt={`${country.name.common} flag`}
             />
