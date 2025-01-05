@@ -12,7 +12,6 @@ const App: React.FC = () => {
     <Router>
       <Hero />
       <Routes>
-      <Route path="/" element={<Hero />} />
         <Route path="/data" element={<Data />} />
         <Route path="/results" element={<SearchResults />} />
         <Route path="/flag/:cca3" element={<FlagDetail />} />
