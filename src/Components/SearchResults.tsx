@@ -1,19 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import axios from "axios";
-
 
 interface Country {
   name: {
-    common: string; 
+    common: string;
   };
-  population: number; 
-  region: string; 
-  capital: string[];
-  flags: {
-    png: string; 
-    alt: string; 
-  };
+  cca3: string;
 }
 
 interface LocationState {
@@ -21,57 +14,50 @@ interface LocationState {
 }
 
 const SearchResults: React.FC = () => {
-
   const location = useLocation();
   const state = location.state as LocationState;
-  const searchTerm = state?.searchTerm || ""; 
+  const searchTerm = state?.searchTerm || "";
 
   const [countries, setCountries] = useState<Country[]>([]);
   const [filteredCountries, setFilteredCountries] = useState<Country[]>([]);
-
 
   useEffect(() => {
     const fetchCountries = async () => {
       try {
         const response = await axios.get("https://restcountries.com/v3.1/all");
-        setCountries(response.data); 
+        setCountries(response.data);
       } catch (error) {
-        console.error("Error fetching countries:", error); 
+        console.error("Error fetching countries:", error);
       }
     };
 
-    fetchCountries(); 
+    fetchCountries();
   }, []);
 
-  
   useEffect(() => {
     if (searchTerm) {
-   
       const results = countries.filter((country) =>
         country.name.common.toLowerCase().includes(searchTerm.toLowerCase())
       );
-      setFilteredCountries(results); 
+      setFilteredCountries(results);
     }
   }, [searchTerm, countries]);
 
   return (
-    <section className="bg-gray-100 min-h-screen p-8">
-      <h2 className="text-2xl font-bold mb-6">Search Results for "{searchTerm}"</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <section className="bg-gray-50 min-h-screen p-8">
+      <h2 className="text-3xl font-extrabold mb-8 text-center text-gray-800">Search Results for "{searchTerm}"</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {filteredCountries.map((country) => (
-          <div key={country.name.common} className="bg-white shadow-md rounded-lg overflow-hidden">
-            <img
-              src={country.flags.png}
-              alt={country.flags.alt}
-              className="w-full h-40 object-cover"
-            />
-            <div className="p-4">
-              <h3 className="text-lg font-semibold mb-2">{country.name.common}</h3>
-              <p className="text-sm">Population: {country.population.toLocaleString()}</p>
-              <p className="text-sm">Region: {country.region}</p>
-              <p className="text-sm">Capital: {country.capital?.[0] || "N/A"}</p>
+          <Link
+            key={country.name.common}
+            to={`/flag/${country.cca3}`}
+            className="bg-white shadow-lg rounded-xl overflow-hidden cursor-pointer transform hover:scale-105 transition-all duration-300 ease-in-out"
+          >
+            <div className="p-6">
+              <h3 className="text-xl font-semibold text-gray-800 text-center mb-3">{country.name.common}</h3>
+              <p className="text-base text-center text-gray-600">Click to view details</p>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </section>

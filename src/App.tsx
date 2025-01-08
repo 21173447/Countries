@@ -18,6 +18,7 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/" element={<Data />} />
         <Route path="/results" element={<SearchResults />} />
+        <Route path="/country/:cca3" element={<FlagDetail />} />
         <Route path="/get-in-touch" element={<GetInTouch />} />
         <Route path="/about" element={<About />} />
         <Route path="/flag/:cca3" element={<FlagDetail />} />

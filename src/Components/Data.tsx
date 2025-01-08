@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import ReactPaginate from "react-paginate";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import LoadingBar from "./LoadingBar";
 
 const Data: React.FC = () => {
   const [countries, setCountries] = useState<any[]>([]);
@@ -17,6 +20,12 @@ const Data: React.FC = () => {
   );
 
   useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      easing: "ease-in-out", 
+      once: true, 
+    });
+
     const fetchCountries = async () => {
       try {
         const response = await axios.get("https://restcountries.com/v3.1/all");
@@ -36,7 +45,7 @@ const Data: React.FC = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div><LoadingBar/></div>;
   }
 
   if (error) {
@@ -44,7 +53,7 @@ const Data: React.FC = () => {
   }
 
   return (
-    <div className=" ">
+    <div>
       <h1 className="text-center py-10 text-2xl">Countries List</h1>
 
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-6 px-32 py-5">
@@ -52,6 +61,7 @@ const Data: React.FC = () => {
           <li
             className="border bg-white shadow-md overflow-hidden transition-transform transform hover:scale-105 hover:shadow-lg border-grey-900"
             key={country.cca3}
+            data-aos="fade-up"
           >
             <Link to={`/flag/${country.cca3}`}>
               <img
@@ -66,20 +76,23 @@ const Data: React.FC = () => {
           </li>
         ))}
       </ul>
-      <div className="bg-red-900  w-full p-3">
-        <ReactPaginate
-          className="grid grid-flow-col place-content-center gap-5 text-white"
-          previousLabel="PREV"
-          nextLabel="NEXT"
-          pageCount={pageCount}
-          onPageChange={handlePageChange}
-          containerClassName="pagination"
-          activeClassName="active text-red-400 w-4 border-black"
-        />
-      </div>
-   
+      <div className="flex justify-center py-6 px-4">
+  <ReactPaginate
+    previousLabel="← Prev"
+    nextLabel="Next →"
+    pageCount={pageCount}
+    onPageChange={handlePageChange}
+    containerClassName="flex flex-wrap justify-center gap-2"
+    pageClassName="px-3 py-2 rounded-lg border border-gray-300 text-gray-700 bg-white hover:bg-gray-100 transition text-sm sm:text-base"
+    activeClassName="bg-red-500 text-white border-red-500"
+    previousClassName="px-3 py-2 rounded-lg border border-gray-300 text-gray-700 bg-white hover:bg-gray-100 transition text-sm sm:text-base"
+    nextClassName="px-3 py-2 rounded-lg border border-gray-300 text-gray-700 bg-white hover:bg-gray-100 transition text-sm sm:text-base"
+    disabledClassName="opacity-50 cursor-not-allowed"
+  />
+</div>
+
+
     </div>
-    
   );
 };
 

@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import LoadingBar from "./LoadingBar";
+import AOS from 'aos';
+import 'aos/dist/aos.css'; // Import AOS CSS
 
 const FlagDetail: React.FC = () => {
   const { cca3 } = useParams<{ cca3: string }>();
@@ -23,12 +26,14 @@ const FlagDetail: React.FC = () => {
     };
 
     fetchCountry();
+
+    AOS.init(); // Initialize AOS
   }, [cca3]);
 
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <p className="text-xl font-semibold">Loading...</p>
+        <p className="text-xl font-semibold"><LoadingBar /></p>
       </div>
     );
   }
@@ -45,7 +50,7 @@ const FlagDetail: React.FC = () => {
     <div className="p-10 bg-white">
       <div className="grid lg:grid-cols-2 gap-10 items-center">
 
-        <div className="flex justify-center">
+        <div className="flex justify-center" data-aos="fade-right">
           <img
             className="border-4 border-gray-300 rounded-lg shadow-lg"
             src={country.flags.svg}
@@ -53,7 +58,7 @@ const FlagDetail: React.FC = () => {
           />
         </div>
 
-        <div className="space-y-4 text-gray-800">
+        <div className="space-y-4 text-gray-800" data-aos="fade-left">
           <h1 className="text-4xl font-bold text-gray-900">{country.name.common}</h1>
           <p>
             <span className="font-medium">Capital:</span>{" "}
@@ -98,9 +103,8 @@ const FlagDetail: React.FC = () => {
         </div>
       </div>
 
-      {/* Coat of Arms Section */}
       {country.coatOfArms?.svg && (
-        <div className="mt-10 text-center">
+        <div className="mt-10 text-center" data-aos="zoom-in">
           <h2 className="text-3xl font-semibold text-gray-800 mb-5">
             Coat of Arms
           </h2>

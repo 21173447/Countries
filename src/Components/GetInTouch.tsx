@@ -1,5 +1,7 @@
-import React, { useState, FormEvent } from 'react';
+import React, { useState, FormEvent, useEffect } from 'react';
 import emailjs from "emailjs-com";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 interface TemplateParams extends Record<string, unknown> {
     name: string;
@@ -12,6 +14,10 @@ const GetInTouch: React.FC = () => {
     const [email, setEmail] = useState<string>('');
     const [message, setMessage] = useState<string>('');
     const [responseMessage, setResponseMessage] = useState<string>('');
+
+    useEffect(() => {
+        AOS.init({ duration: 1000, once: true });  // Adjust animation duration as needed
+    }, []);
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
@@ -46,17 +52,19 @@ const GetInTouch: React.FC = () => {
     };
 
     return (
-        <section className='h-screen flex justify-center items-center'>
-            <div className=' bg-opacity-50 p-12 md:p-20 max-w-2xl w-full'>
-                <h1 className='text-center text-gray-900 text-3xl font-semibold mb-6'>Get in Touch</h1>
+        <section className='h-screen flex justify-center items-center pt-8'>
+            <div className='bg-opacity-50  md:p-20 max-w-2xl w-full' data-aos="fade-up">
+                <h1 className='text-center text-gray-900 text-3xl font-semibold mb-6' data-aos="fade-up">
+                    Get in Touch
+                </h1>
                 <div className="flex justify-center mb-6">
-                    <hr className="border-2 border-white w-16 sm:w-24" />
+                    <hr className="border-2 border-white w-16 sm:w-24" data-aos="fade-up" />
                 </div>
-                <p className='text-center text-gray-900 text-lg mb-8'>
+                <p className='text-center text-gray-900 text-lg mb-8' data-aos="fade-up">
                     We would love to hear from you! Please fill out the form below, and we’ll get back to you shortly.
                 </p>
                 <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="flex flex-col">
+                    <div className="flex flex-col" data-aos="fade-up">
                         <label htmlFor="name" className="text-gray-900 font-medium">Your Name</label>
                         <input 
                             id="name" 
@@ -69,7 +77,7 @@ const GetInTouch: React.FC = () => {
                             placeholder="Enter your name" 
                         />
                     </div>
-                    <div className="flex flex-col">
+                    <div className="flex flex-col" data-aos="fade-up">
                         <label htmlFor="email" className="text-gray-900 font-medium">Your Email</label>
                         <input 
                             id="email" 
@@ -82,7 +90,7 @@ const GetInTouch: React.FC = () => {
                             placeholder="Enter your email" 
                         />
                     </div>
-                    <div className="flex flex-col">
+                    <div className="flex flex-col" data-aos="fade-up">
                         <label htmlFor="message" className="text-gray-900 font-medium">Your Message</label>
                         <textarea 
                             id="message" 
@@ -97,14 +105,19 @@ const GetInTouch: React.FC = () => {
                     <button 
                         type="submit" 
                         className="w-full py-3 rounded-lg text-lg bg-red-800 text-white hover:bg-red-700 focus:ring-2 focus:ring-gray-900 transition duration-300"
+                        data-aos="fade-up"
                     >
                         Send Message
                     </button>
                 </form>
-                {responseMessage && <p className="text-center text-grey-900 mt-4 text-sm">{responseMessage}</p>}
+                {responseMessage && (
+                    <p className="text-center text-grey-900 mt-4 text-sm" data-aos="fade-up">
+                        {responseMessage}
+                    </p>
+                )}
             </div>
         </section>
     );
-}
+};
 
 export default GetInTouch;

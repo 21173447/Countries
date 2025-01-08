@@ -86,7 +86,7 @@ const Navbar: React.FC<NavbarProps> = ({ countries = [] }) => {
             </Link>
           </li>
         ))}
-        {/* Mobile Links */}
+    
         <li>
           <Link
             to="/about"
