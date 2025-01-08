@@ -26,52 +26,91 @@ const FlagDetail: React.FC = () => {
   }, [cca3]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <p className="text-xl font-semibold">Loading...</p>
+      </div>
+    );
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <p className="text-xl text-red-500">{error}</p>
+      </div>
+    );
   }
 
   return country ? (
+    <div className="p-10 bg-white">
+      <div className="grid lg:grid-cols-2 gap-10 items-center">
 
-
-    <div className=" grid lg:grid-cols-2  p-10 space-x-10 space-y-10">
-
-      <div>
-
-        <img className=" border grid place-items-center" src={country.flags.svg} alt={`${country.name.common} flag`} />
-      </div>
-
-      <div className="text-sm">
-        <h1 className="text-5xl">{country.name.common}</h1>
-        <div>
-          <p>Capital: <span className="font-thin">{country.capital}</span></p>
-          <p>Aternaitve Spellings:{country.altSpellings}</p>
-          <p>Population: {country.population}</p>
-          <p>Region: {country.region}</p>
-          <p>Sub-Region: {country.subregion}</p>
-          <p>Time Zone: {country.timezones}</p>
-          <p>Borders: {country.borders}</p>
-          <p>Continents: {country.continents}</p>
-          <p className="" >Maps: <a className="text-red-400 hover:text-red-700  " href={country.maps.googleMaps} target="_blank" rel="noopener noreferrer">View on Google Maps</a></p>
-
+        <div className="flex justify-center">
+          <img
+            className="border-4 border-gray-300 rounded-lg shadow-lg"
+            src={country.flags.svg}
+            alt={`${country.name.common} flag`}
+          />
         </div>
 
-
-
+        <div className="space-y-4 text-gray-800">
+          <h1 className="text-4xl font-bold text-gray-900">{country.name.common}</h1>
+          <p>
+            <span className="font-medium">Capital:</span>{" "}
+            <span className="font-light">{country.capital}</span>
+          </p>
+          <p>
+            <span className="font-medium">Alternative Spellings:</span>{" "}
+            {country.altSpellings.join(", ")}
+          </p>
+          <p>
+            <span className="font-medium">Population:</span>{" "}
+            {country.population.toLocaleString()}
+          </p>
+          <p>
+            <span className="font-medium">Region:</span> {country.region}
+          </p>
+          <p>
+            <span className="font-medium">Sub-Region:</span> {country.subregion}
+          </p>
+          <p>
+            <span className="font-medium">Time Zones:</span>{" "}
+            {country.timezones.join(", ")}
+          </p>
+          <p>
+            <span className="font-medium">Borders:</span>{" "}
+            {country.borders?.join(", ") || "None"}
+          </p>
+          <p>
+            <span className="font-medium">Continents:</span> {country.continents}
+          </p>
+          <p>
+            <span className="font-medium">Maps:</span>{" "}
+            <a
+              className="text-red-900  font-bold"
+              href={country.maps.googleMaps}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View on Google Maps
+            </a>
+          </p>
+        </div>
       </div>
 
-
-      <div className=" grid place-items-center col-span-2 row-start-2 py-5 space-y-5  border-[13px] ">
-        <h2 className="text-5xl">Coat of Arms</h2>
-
-        <img className="w-28"
-          src={country.coatOfArms.svg}
-        />
-      </div>
-
-
+      {/* Coat of Arms Section */}
+      {country.coatOfArms?.svg && (
+        <div className="mt-10 text-center">
+          <h2 className="text-3xl font-semibold text-gray-800 mb-5">
+            Coat of Arms
+          </h2>
+          <img
+            className="w-40 mx-auto border-2 border-gray-300 rounded-lg shadow-md"
+            src={country.coatOfArms.svg}
+            alt={`${country.name.common} coat of arms`}
+          />
+        </div>
+      )}
     </div>
   ) : (
     <div>No country data available</div>

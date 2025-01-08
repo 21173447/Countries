@@ -9,7 +9,7 @@ const Data: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(0);
 
-  const itemsPerPage = 8;
+  const itemsPerPage = 14;
   const pageCount = Math.ceil(countries.length / itemsPerPage);
   const currentCountries = countries.slice(
     currentPage * itemsPerPage,
@@ -44,13 +44,13 @@ const Data: React.FC = () => {
   }
 
   return (
-    <div className="bg-gray-100 ">
+    <div className=" ">
       <h1 className="text-center py-10 text-2xl">Countries List</h1>
 
-      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-32 py-5">
+      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-6 px-32 py-5">
         {currentCountries.map((country) => (
           <li
-            className="border bg-white shadow-md overflow-hidden transition-transform transform hover:scale-105 hover:shadow-lg border-red-500"
+            className="border bg-white shadow-md overflow-hidden transition-transform transform hover:scale-105 hover:shadow-lg border-grey-900"
             key={country.cca3}
           >
             <Link to={`/flag/${country.cca3}`}>
@@ -66,7 +66,7 @@ const Data: React.FC = () => {
           </li>
         ))}
       </ul>
-      <div className=" bg-red-900  w-full p-3">
+      <div className="bg-red-900  w-full p-3">
         <ReactPaginate
           className="grid grid-flow-col place-content-center gap-5 text-white"
           previousLabel="PREV"

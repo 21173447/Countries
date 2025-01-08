@@ -6,15 +6,22 @@ import Hero from "./Components/Hero";
 import SearchResults from "./Components/SearchResults";
 
 import Footer1 from "./Components/Footer1";
+import Navbar from "./Components/NavBar";
+import About from "./Components/About";
+import GetInTouch from "./Components/GetInTouch";
 
 const App: React.FC = () => {
   return (
     <Router>
+<Navbar/>
       <Hero />
       <Routes>
-        <Route path="/data" element={<Data />} />
+        <Route path="/" element={<Data />} />
         <Route path="/results" element={<SearchResults />} />
+        <Route path="/get-in-touch" element={<GetInTouch />} />
+        <Route path="/about" element={<About />} />
         <Route path="/flag/:cca3" element={<FlagDetail />} />
+
       </Routes>
       <Footer1 />
     </Router>
