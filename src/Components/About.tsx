@@ -2,22 +2,19 @@ import React, { useEffect, useState } from "react";
 
 const About: React.FC = () => {
   const [apiInfo, setApiInfo] = useState<string>("");
-
-  // Fetch information about the Rest Countries API
   useEffect(() => {
-    // Assuming you're using the Rest Countries API
+ 
     fetch("https://restcountries.com/v3.1/all")
       .then((response) => response.json())
-      .then((data) => {
+      .then(() => {
         setApiInfo(
           `The Rest Countries API provides detailed information about all countries, such as population, languages, region, and flags. The data is available in JSON format, which can be used in various web and mobile applications. You can query the API for country names, regions, languages, and even flags.`
         );
       })
-      .catch((error) => {
+      .catch(() => {
         setApiInfo("Error fetching API information.");
       });
   }, []);
-
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-4">About the Rest Countries API</h1>
@@ -28,6 +25,7 @@ const About: React.FC = () => {
         It is widely used in applications that require country-specific information.
       </p>
       <h2 className="text-2xl font-semibold mb-4">How the API Works</h2>
+      <p className="text-lg text-gray-700 mb-4">{apiInfo}</p>
       <p className="text-lg text-gray-700 mb-4">
         The API can be accessed by sending HTTP GET requests to various endpoints. For example, you can use the endpoint{" "}
         <code className="bg-gray-200 p-1 rounded">/v3.1/all</code> to retrieve
@@ -79,6 +77,11 @@ const About: React.FC = () => {
             }
           ]`}
         </code>
+
+        
+
+
+
       </pre>
       <h3 className="text-xl font-medium mb-4">Conclusion</h3>
       <p className="text-lg text-gray-700">

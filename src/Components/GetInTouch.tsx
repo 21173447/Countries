@@ -1,7 +1,7 @@
 import React, { useState, FormEvent } from 'react';
 import emailjs from "emailjs-com";
 
-interface TemplateParams {
+interface TemplateParams extends Record<string, unknown> {
     name: string;
     email: string;
     message: string;
