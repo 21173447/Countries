@@ -84,7 +84,7 @@ const Data: React.FC = () => {
     onPageChange={handlePageChange}
     containerClassName="flex flex-wrap justify-center gap-2"
     pageClassName="px-3 py-2 rounded-lg border border-gray-300 text-gray-700 bg-white hover:bg-gray-100 transition text-sm sm:text-base"
-    activeClassName="bg-red-500 text-white border-red-500"
+    activeClassName="bg-red-500 text-black border-red-500"
     previousClassName="px-3 py-2 rounded-lg border border-gray-300 text-gray-700 bg-white hover:bg-gray-100 transition text-sm sm:text-base"
     nextClassName="px-3 py-2 rounded-lg border border-gray-300 text-gray-700 bg-white hover:bg-gray-100 transition text-sm sm:text-base"
     disabledClassName="opacity-50 cursor-not-allowed"
